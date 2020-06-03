@@ -1,7 +1,3 @@
-# -*- coding: utf-8 -*-
-# @Time    : 2019/6/1 0001 21:23:24
-# @Author  : zll
-# @File    : page_log.py
 import logging
 import os
 from Common.read_ini import ReadConfig

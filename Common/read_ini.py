@@ -10,5 +10,5 @@ class ReadConfig:
 
 
 if __name__ == "__main__":
-    browser = ReadConfig().getValue(section='browserType', name='browserName')
-    print(len(browser))
+    browser = ReadConfig().getValue(section='located_path', name='log_path')
+    print(browser)
