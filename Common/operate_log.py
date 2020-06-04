@@ -1,6 +1,7 @@
+# -*- coding: utf-8 -*-”
 import logging
 import os
-from Common.read_ini import ReadConfig
+from Common.operate_ini import ReadConfig
 
 def LogPage(logger_name):
 
