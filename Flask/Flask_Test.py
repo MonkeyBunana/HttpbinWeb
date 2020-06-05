@@ -5,7 +5,7 @@ from flask import redirect
 from flask import url_for
 import os
 from werkzeug.utils import secure_filename
-from Common.test import test
+from Requests.requests_send import SendRequests
 
 app = Flask(__name__)
 
@@ -31,7 +31,7 @@ def upload():
 
 @app.route('/message', methods=['GET'])
 def message():
-    return render_template('Flask_Message.html', text=test().test_send_request)
+    return render_template('Flask_Message.html', text=SendRequests().response())
 
 if __name__ == '__main__':
     # debug 调试支持，修改代码自动重新载入

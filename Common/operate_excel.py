@@ -21,6 +21,13 @@ class ExcelData:
         # 获取第一行所有内容,如果括号中1就是第二行，这点跟列表索引类似
         self.keys = self.table.row_values(0)
 
+        # 获取读者证号
+        self.excel_reader = ReadConfig().getValue(section='system_data', name='reader')
+        # 获取借阅图书
+        self.excel_bro = ReadConfig().getValue(section='system_data', name='bro')
+        # 获取馆代码成员馆
+        self.excel_lib = ReadConfig().getValue(section='system_data', name='libID')
+
     def read_excel(self):
         """ 读取 Excel 中的数据，并返回一个 list，数据包装成 dict
             PS：xlrd的数据类型有：0 empty, 1 string, 2 number, 3 date, 4 boolean, 5 error
@@ -44,21 +51,32 @@ class ExcelData:
         return datas
 
 
-    def write_excel_token(self, token):
+    def write_excel(self, token):
         """ 将 token 值写入 Excel 列表中
         :param token: 传入获取到的 token 值
         :return: 暂无返回
         """
         copy_excel = copy(self.data)
         # 通过get_sheet()获取的sheet有write()方法
-        for i in self.post_token_items():
+        for i in self.token_items():
             for k, v in i.items():
-                v['userToken'] = token
+                if 'userToken' in v:
+                    v['userToken'] = token
+                elif 'readerBarcode' in v:
+                    v['readerBarcode'] = self.excel_reader
+                elif 'bookBarcode' in v:
+                    v['bookBarcode'] = self.excel_bro
+                elif 'libId' in v:
+                    v['libId'] = self.excel_lib
+                elif 'czid' in v:
+                    # 成员馆 测试SC2004023
+                    v['libId'] = '0f00faed08914e2c824f6aad93a8c55e'
+
                 copy_excel.get_sheet(0).write(int(k), 8, str(v))
         copy_excel.save(self.excel_path)
 
 
-    def post_token_items(self):
+    def token_items(self):
         """ 读取 Excel，获取字段 Request Data 中包含需要 userToken 的行，返回行 No
         :return: List
         """
@@ -76,5 +94,5 @@ class ExcelData:
 
 if __name__ == "__main__":
     # print(ExcelData().read_excel())
-    print(ExcelData().post_token_items())
-    # ExcelData().write_excel_token(2)
+    print(ExcelData().token_items())
+    # ExcelData().write_excel(2)
