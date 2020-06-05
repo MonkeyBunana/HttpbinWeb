@@ -51,24 +51,26 @@ class ExcelData:
         copy_excel = copy(self.data)
         # 通过get_sheet()获取的sheet有write()方法
         for i in self.post_token_items():
-            copy_excel.get_sheet(0).write(int(i), 8, token)
+            for k, v in i.items():
+                v['userToken'] = token
+                copy_excel.get_sheet(0).write(int(k), 8, str(v))
         copy_excel.save(self.excel_path)
 
 
     def post_token_items(self):
-        """ 返回request Data中含有userToken的No列表
-        :return: list
-        """
         # 获取request Data中含有userToken的No列表
         token_list = []
+        token_data = {}
         # 读取Excel数据
         excel_data = ExcelData().read_excel()
         for i in excel_data:
             if 'userToken' in i.get('Request Data'):
-                token_list.append(i.get('No'))
+                token_data[i.get('No')] = eval(i.get('Request Data'))
+                token_list.append(token_data)
         return token_list
 
 
 if __name__ == "__main__":
     # print(ExcelData().read_excel())
     print(ExcelData().post_token_items())
+    # ExcelData().write_excel_token(2)

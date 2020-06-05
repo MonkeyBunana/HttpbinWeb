@@ -31,7 +31,7 @@ def upload():
 
 @app.route('/message', methods=['GET'])
 def message():
-    return render_template('Flask_Message.html', text=test().test_send_request())
+    return render_template('Flask_Message.html', text=test().test_send_request)
 
 if __name__ == '__main__':
     # debug 调试支持，修改代码自动重新载入
