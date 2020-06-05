@@ -22,9 +22,10 @@ class ExcelData:
         self.keys = self.table.row_values(0)
 
     def read_excel(self):
-        """
-            xlrd的数据类型有：0 empty, 1 string, 2 number, 3 date, 4 boolean, 5 error
-            数字一律按浮点型输出，日期输出成一串小数，布尔型输出0或1，所以我们必须在程序中做判断处理转换成我们想要的数据类型
+        """ 读取 Excel 中的数据，并返回一个 list，数据包装成 dict
+            PS：xlrd的数据类型有：0 empty, 1 string, 2 number, 3 date, 4 boolean, 5 error
+               数字一律按浮点型输出，日期输出成一串小数，布尔型输出0或1，所以我们必须在程序中做判断处理转换成我们想要的数据类型
+        :return: List
         """
         # 定义一个空列表
         datas = []
@@ -44,8 +45,8 @@ class ExcelData:
 
 
     def write_excel_token(self, token):
-        """ 将token值写入Excel列表中
-        :param token: 传入获取到的token值
+        """ 将 token 值写入 Excel 列表中
+        :param token: 传入获取到的 token 值
         :return: 暂无返回
         """
         copy_excel = copy(self.data)
@@ -58,6 +59,9 @@ class ExcelData:
 
 
     def post_token_items(self):
+        """ 读取 Excel，获取字段 Request Data 中包含需要 userToken 的行，返回行 No
+        :return: List
+        """
         # 获取request Data中含有userToken的No列表
         token_list = []
         token_data = {}

@@ -19,6 +19,13 @@ class RequestsData:
         pass
 
     def send_request(self, method, url, data=None, headers=None):
+        """ 根据 request 的方法类型传入 url，data，headers 等值
+        :param method: get / post / delete / put ...
+        :param url: 网页地址
+        :param data: 网页传参
+        :param headers: 请求头
+        :return: response
+        """
         try:
             if headers:
                 if method == "GET":

@@ -8,23 +8,23 @@ class test:
     def __init__(self):
         self.result_res = []
         self.get_excel_datas = ExcelData().read_excel()
-        # self.req_data = {}
 
+    # 'property',  获取对象的所有属性
     @property
     def test_send_request(self):
+        """ 将Excel中的数据读出并循环放入 Requests 中运行，返回处理好的 json 结果
+            1、先将 Excel 字段 Request Data 中的 userToken 赋值并保存回 Excel 表中
+            2、获取 Excel 表中的所有数据，返回的一个 List，包含 dict
+            3、将值分别对应填入 Requests 模板中，运行结果处理后整合为一个 List，包含 dict
+            4、转换为 json 值传出
+        :return: json
+        """
         # 给Excel中的userToken添加/更新值
         ExcelData().write_excel_token(self.get_user_token())
         # 遍历read_excel传过来的Excel list数据
         for i in self.get_excel_datas:
             # 如果Excel中用例是可执行的
             if i.get('IsRun') == 'Y':
-                # 如果Excel中的token为空
-                # if 'userToken' in eval(i.get('Request Data')) and eval(i.get('Request Data'))['userToken'] == '':
-                    # if i.get('Method') == 'POST':
-                    #     # 获取Excel中的token值
-                    #     self.req_data = eval(i.get('Request Data'))
-                    #     # 给req_data字典中的userToken字段调用get_user_token()获取token
-                    #     self.req_data['userToken'] = self.get_user_token()
                 # 调用requests模板，根据参数返回get、post结果
                 res = RequestsData().send_request(
                     method=i.get('Method'),
@@ -43,6 +43,9 @@ class test:
         return json.dumps(self.result_res, indent=2, ensure_ascii=False)
 
     def get_user_token(self):
+        """ 通过post方法登录，获取并返回登录后随机值userToken
+        :return: str
+        """
         method = 'POST'
         url = 'http://192.168.1.47:8080/service/api/p/login/userLogin'
         data = {"loginName": "zhonglilong", "loginPwd": "Td123456"}
