@@ -2,11 +2,15 @@
   <dictionary name="td">
     <words>
       <w>basepath</w>
+      <w>czid</w>
       <w>datas</w>
+      <w>elib</w>
       <w>httpbin</w>
+      <w>nember</w>
       <w>uname</w>
       <w>updata</w>
       <w>zhonglilong</w>
+      <w>zzzzzz</w>
     </words>
   </dictionary>
 </component>

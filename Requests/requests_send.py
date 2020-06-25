@@ -14,10 +14,10 @@ class SendRequests:
         self.rd = RequestsData()
 
     def response(self):
-        """ 将Excel中的数据读出并循环放入 Requests 中运行，返回处理好的 json 结果
-            1、先将 Excel 字段 Request Data 中的 userToken 赋值并保存回 Excel 表中
-            2、获取 Excel 表中的所有数据，返回的一个 List，包含 dict
-            3、将值分别对应填入 Requests 模板中，运行结果处理后整合为一个 List，包含 dict
+        """ 将数据读出并循环放入运行，返回处理好的 json 结果
+            1、先将字段 Request Data 中的 userToken 赋值并保存回表中
+            2、获取表中的所有数据，返回的一个 List，包含 dict
+            3、将值分别对应填入模板中，运行结果处理后整合为一个 List，包含 dict
             4、转换为 json 值传出
         :return: json
         """
